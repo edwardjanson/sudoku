@@ -29,14 +29,17 @@ public class GameLogic {
         return matrix;
     }
 
-    public static ArrayList<Integer> checkBox(int matrix[][], int[] boxRange) {
-//        ArrayList<Integer> pickedNumbers = new ArrayList<>();
-//
-//        for (int [] row : matrix) {
-//            for (int element : row) {
-//            }
-//        }
+    public static ArrayList<Integer> checkBox(int[][] matrix, int[] boxRange) {
+        ArrayList<Integer> availableNumbers = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9));
 
+        for (int row = boxRange[0] - 3; row < boxRange[0]; row++) {
+            for (int column = boxRange[1] - 3; column < boxRange[1]; column++) {
+                if (matrix[row][column] != 0) {
+                    availableNumbers.remove((Integer) matrix[row][column]);
+                }
+            }
+        }
+        return availableNumbers;
     }
 
     public static int[] boxRange(int numberRow, int numberColumn) {
@@ -60,18 +63,21 @@ public class GameLogic {
     }
 
     public static ArrayList<Integer> checkRow(int row, int column) {
-
+        ArrayList<Integer> array = new ArrayList<>();
+        return array;
     }
 
     public static ArrayList<Integer> checkColumn(int row, int column) {
-
+        ArrayList<Integer> array = new ArrayList<>();
+        return array;
     }
 
     public static ArrayList<Integer> possibleNumbers() {
-
+        ArrayList<Integer> array = new ArrayList<>();
+        return array;
     }
 
-    public static int randomNumber {
-
+    public static int randomNumber() {
+        return 0;
     }
 }
