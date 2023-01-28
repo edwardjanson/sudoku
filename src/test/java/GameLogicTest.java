@@ -26,7 +26,7 @@ public class GameLogicTest {
         matrix[0][3] = 3;
         matrix[0][4] = 6;
         List<Integer> testNumbers = List.of(1,2,4,5,7,8,9);
-        assertEquals( testNumbers.toString(), GameLogic.checkBox(matrix, range).toString());
+        assertEquals(testNumbers.toString(), GameLogic.checkBox(matrix, range).toString());
     }
 
     @Test
@@ -36,6 +36,10 @@ public class GameLogicTest {
 
     @Test
     public void checkRow() {
+        matrix[0][3] = 3;
+        matrix[0][4] = 6;
+        List<Integer> testNumbers = List.of(1,2,4,5,7,8,9);
+        assertEquals(testNumbers.toString(), GameLogic.checkRow(matrix, 0).toString());
     }
 
     @Test

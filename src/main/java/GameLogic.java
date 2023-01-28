@@ -62,9 +62,17 @@ public class GameLogic {
         return boxRange;
     }
 
-    public static ArrayList<Integer> checkRow(int row, int column) {
-        ArrayList<Integer> array = new ArrayList<>();
-        return array;
+    public static ArrayList<Integer> checkRow(int[][] matrix, int row) {
+        ArrayList<Integer> availableNumbers = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9));
+
+        for (int column = 0; column < 9; column++) {
+                if(matrix[row][column] != 0) {
+                    availableNumbers.remove((Integer) matrix[row][column]);
+                }
+            }
+
+        return availableNumbers;
+
     }
 
     public static ArrayList<Integer> checkColumn(int row, int column) {
