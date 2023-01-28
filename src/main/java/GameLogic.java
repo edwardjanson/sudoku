@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class GameLogic {
 
@@ -30,16 +31,16 @@ public class GameLogic {
     }
 
     public static ArrayList<Integer> checkBox(int[][] matrix, int[] boxRange) {
-        ArrayList<Integer> availableNumbers = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9));
+        ArrayList<Integer> usedNumbers = new ArrayList<>();
 
         for (int row = boxRange[0] - 3; row < boxRange[0]; row++) {
             for (int column = boxRange[1] - 3; column < boxRange[1]; column++) {
                 if (matrix[row][column] != 0) {
-                    availableNumbers.remove((Integer) matrix[row][column]);
+                    usedNumbers.add(matrix[row][column]);
                 }
             }
         }
-        return availableNumbers;
+        return usedNumbers;
     }
 
     public static int[] boxRange(int numberRow, int numberColumn) {
@@ -63,33 +64,46 @@ public class GameLogic {
     }
 
     public static ArrayList<Integer> checkRow(int[][] matrix, int row) {
-        ArrayList<Integer> availableNumbers = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9));
+        ArrayList<Integer> usedNumbers = new ArrayList<>();
 
         for (int column = 0; column < 9; column++) {
                 if(matrix[row][column] != 0) {
-                    availableNumbers.remove((Integer) matrix[row][column]);
+                    usedNumbers.add(matrix[row][column]);
                 }
             }
 
-        return availableNumbers;
+        return usedNumbers;
 
     }
 
     public static ArrayList<Integer> checkColumn(int[][] matrix, int column) {
-        ArrayList<Integer> availableNumbers = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9));
+        ArrayList<Integer> usedNumbers = new ArrayList<>();
 
         for (int row = 0; row < 9; row++) {
             if(matrix[row][column] != 0) {
-                availableNumbers.remove((Integer) matrix[row][column]);
+                usedNumbers.add(matrix[row][column]);
             }
         }
 
-        return availableNumbers;
+        return usedNumbers;
     }
 
-    public static ArrayList<Integer> possibleNumbers() {
-        ArrayList<Integer> array = new ArrayList<>();
-        return array;
+    public static List<Integer> possibleNumbers(int[][] matrix, int row, int column) {
+        ArrayList<Integer> availableNumbers = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9));
+
+        ArrayList<Integer> columnNumbers = checkColumn(matrix, column);
+        ArrayList<Integer> rowNumbers = checkRow(matrix, row);
+        int[] boxRange = boxRange(row, column);
+        ArrayList<Integer> boxNumbers = checkBox(matrix, boxRange);
+
+        ArrayList<ArrayList<Integer>> combinedNumbers = new ArrayList<>(Arrays.asList(columnNumbers, rowNumbers, boxNumbers));
+        List<Integer> finalNumbers = combinedNumbers.stream().flatMap(List::stream).distinct().toList();
+
+        for (int number : finalNumbers) {
+            availableNumbers.remove((Integer) number);
+        }
+
+        return availableNumbers;
     }
 
     public static int randomNumber() {
