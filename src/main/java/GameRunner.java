@@ -2,7 +2,7 @@ public class GameRunner {
 
     public static void main(String[] args) {
 
-        int[][] matrix = new int[9][9];
+        int[][] matrix = GameLogic.initiateGame();
 
         GameLogic.terminalOutput(matrix);
 
