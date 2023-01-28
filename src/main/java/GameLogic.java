@@ -75,9 +75,16 @@ public class GameLogic {
 
     }
 
-    public static ArrayList<Integer> checkColumn(int row, int column) {
-        ArrayList<Integer> array = new ArrayList<>();
-        return array;
+    public static ArrayList<Integer> checkColumn(int[][] matrix, int column) {
+        ArrayList<Integer> availableNumbers = new ArrayList<>(Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9));
+
+        for (int row = 0; row < 9; row++) {
+            if(matrix[row][column] != 0) {
+                availableNumbers.remove((Integer) matrix[row][column]);
+            }
+        }
+
+        return availableNumbers;
     }
 
     public static ArrayList<Integer> possibleNumbers() {

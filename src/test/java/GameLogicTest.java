@@ -44,10 +44,16 @@ public class GameLogicTest {
 
     @Test
     public void checkColumn() {
+        matrix[0][3] = 3;
+        matrix[1][3] = 6;
+        List<Integer> testNumbers = List.of(1,2,4,5,7,8,9);
+        assertEquals(testNumbers.toString(), GameLogic.checkColumn(matrix, 3).toString());
     }
 
     @Test
     public void possibleNumbers() {
+
+
     }
 
     @Test
