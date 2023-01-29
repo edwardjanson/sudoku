@@ -91,4 +91,13 @@ public class GameLogicTest {
         testGridLocation[1] = -1;
         assertArrayEquals(testGridLocation, GameLogic.gridLocation(testLocation));
     }
+
+    @Test
+    public void matrixHasUniqueValues(){
+       int[][] matrix= GameLogic.initiateGameGrid();
+       for (int[] row: matrix){
+        assertEquals(9, Arrays.stream(row).distinct().count() );
+       }
+    }
+
 }
