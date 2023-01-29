@@ -67,7 +67,7 @@ public class GameLogicTest {
 
     @Test
     public void canGetGridLocation() {
-        String testLocation = "B3";
+        String testLocation = "b3";
         int[] testGridLocation = new int[2];
         testGridLocation[0] = 1;
         testGridLocation[1] = 2;

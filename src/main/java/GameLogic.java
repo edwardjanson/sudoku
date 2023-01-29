@@ -7,8 +7,19 @@ public class GameLogic {
 
     public static void terminalOutput(int matrix[][]) {
         int rowCount = 0;
+        String[] column = {"1", "2", "3", " ", "4", "5", "6", " ", "7", "8", "9"};
+        System.out.println("    " + Arrays.toString(column)
+                .replace(",", "")
+                .replace("[", "")
+                .replace("]", "").trim());
+
+        System.out.println();
+
         String[] split = {"–", "–", "–", "–", "–", "–", "–", "–", "–", "–", "–"};
-        for (int [] row : matrix) {
+
+        String[] rowLetters = new String[]{"A", "B", "C", "D", "E", "F", "G", "H", "I"};
+
+        for (int[] row : matrix) {
             String[] line = {" ", " ", " ", "|", " ", " ", " ", "|", " ", " ", " "};
             int lineIndex = 0;
             for (int i = 0; i < line.length ; i++) {
@@ -18,12 +29,12 @@ public class GameLogic {
                 }
             }
             if (rowCount % 3 == 0 && rowCount != 0) {
-                System.out.println(Arrays.toString(split)
+                System.out.println("    " + Arrays.toString(split)
                                         .replace(",", "")
                                         .replace("[", "")
                                         .replace("]", ""));
             }
-            System.out.println(Arrays.toString(line)
+            System.out.println(rowLetters[rowCount] + "   " + Arrays.toString(line)
                                     .replace(",", "")
                                     .replace("[", "")
                                     .replace("]", ""));
@@ -118,7 +129,7 @@ public class GameLogic {
 
     public static int[] gridLocation(String userInput) {
         int[] gridLocation = new int[2];
-        char[] input = userInput.toCharArray();
+        char[] input = userInput.toUpperCase().toCharArray();
 
         int tempRow = (int) input[0];
         if (tempRow >= 65 && tempRow <= 73) {
