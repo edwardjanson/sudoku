@@ -22,7 +22,7 @@ public class GameLogicTest {
     }
 
     @Test
-    public void checkBox() {
+    public void canCheckBox() {
         matrix[0][3] = 3;
         matrix[0][4] = 6;
         List<Integer> testNumbers = List.of(3,6);
@@ -30,12 +30,12 @@ public class GameLogicTest {
     }
 
     @Test
-    public void boxRange() {
+    public void canGetBoxRange() {
         assertArrayEquals(range, GameLogic.boxRange(0, 3));
     }
 
     @Test
-    public void checkRow() {
+    public void canCheckRow() {
         matrix[0][3] = 3;
         matrix[0][4] = 6;
         List<Integer> testNumbers = List.of(3,6);
@@ -43,7 +43,7 @@ public class GameLogicTest {
     }
 
     @Test
-    public void checkColumn() {
+    public void canCheckColumn() {
         matrix[0][3] = 3;
         matrix[1][3] = 6;
         List<Integer> testNumbers = List.of(3,6);
@@ -51,7 +51,7 @@ public class GameLogicTest {
     }
 
     @Test
-    public void possibleNumbers() {
+    public void canFindPossibleNumbers() {
         matrix[2][2] = 3;
         matrix[4][0] = 5;
         matrix[8][0] = 4;
@@ -62,6 +62,24 @@ public class GameLogicTest {
     }
 
     @Test
-    public void randomNumber() {
+    public void canGetRandomNumber() {
+    }
+
+    @Test
+    public void canGetGridLocation() {
+        String testLocation = "B3";
+        int[] testGridLocation = new int[2];
+        testGridLocation[0] = 1;
+        testGridLocation[1] = 2;
+        assertArrayEquals(testGridLocation, GameLogic.gridLocation(testLocation));
+    }
+
+    @Test
+    public void returnsErrorRangeIfWrongInput() {
+        String testLocation = "K10";
+        int[] testGridLocation = new int[2];
+        testGridLocation[0] = -1;
+        testGridLocation[1] = -1;
+        assertArrayEquals(testGridLocation, GameLogic.gridLocation(testLocation));
     }
 }

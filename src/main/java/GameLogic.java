@@ -109,4 +109,29 @@ public class GameLogic {
     public static int randomNumber() {
         return 0;
     }
+
+    public static int[] gridLocation(String userInput) {
+        int[] gridLocation = new int[2];
+        char[] input = userInput.toCharArray();
+
+        int tempRow = (int) input[0];
+        if (tempRow >= 65 && tempRow <= 73) {
+            gridLocation[0] = tempRow - 65;
+        } else {
+            gridLocation[0] = -1;
+            gridLocation[1] = -1;
+            return gridLocation;
+        }
+
+        int tempColumn = Character.getNumericValue(input[1]);
+        if (tempColumn >= 1 &&  tempColumn <= 9) {
+            gridLocation[1] = tempColumn - 1;
+        } else {
+            gridLocation[0] = -1;
+            gridLocation[1] = -1;
+            return gridLocation;
+        }
+
+        return gridLocation;
+    }
 }
