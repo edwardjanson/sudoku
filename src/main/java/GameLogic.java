@@ -7,7 +7,7 @@ public class GameLogic {
 
     public static void terminalOutput(int matrix[][]) {
         int rowCount = 0;
-        String[] split = {"_", "_", "_", "_", "_", "_", "_", "_", "_", "_", "_"};
+        String[] split = {"–", "–", "–", "–", "–", "–", "–", "–", "–", "–", "–"};
         for (int [] row : matrix) {
             String[] line = {" ", " ", " ", "|", " ", " ", " ", "|", " ", " ", " "};
             int lineIndex = 0;
@@ -18,9 +18,15 @@ public class GameLogic {
                 }
             }
             if (rowCount % 3 == 0 && rowCount != 0) {
-                System.out.println(Arrays.toString(split));
+                System.out.println(Arrays.toString(split)
+                                        .replace(",", "")
+                                        .replace("[", "")
+                                        .replace("]", ""));
             }
-            System.out.println(Arrays.toString(line));
+            System.out.println(Arrays.toString(line)
+                                    .replace(",", "")
+                                    .replace("[", "")
+                                    .replace("]", ""));
             rowCount += 1;
         }
     }
