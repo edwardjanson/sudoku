@@ -43,8 +43,24 @@ public class GameLogic {
         }
     }
 
-    public static int[][] initiateGame() {
+    public static int[][] initiateGameGrid() {
         int[][] matrix = new int[9][9];
+
+        for (int row = 0; row < 9; row++) {
+            for (int column = 0; column < 9; column++) {
+                List<Integer> possibleNumbers = possibleNumbers(matrix, row, column);
+                int randomNumber = randomNumber(possibleNumbers);
+                if(randomNumber == 0){
+                    row--;
+                    break;
+
+                }
+                else{
+                    matrix[row][column] = randomNumber;
+                }
+                System.out.println(Arrays.toString(matrix[row]));
+            }
+        }
         return matrix;
     }
 
@@ -126,7 +142,11 @@ public class GameLogic {
 
     public static int randomNumber(List<Integer> possibleNumbers) {
         Random rand = new Random();
-        return possibleNumbers.get(rand.nextInt(possibleNumbers.size()));
+        if (possibleNumbers.size() != 0 ){
+            return possibleNumbers.get(rand.nextInt(possibleNumbers.size()));
+        }
+        return 0;
+
     }
 
     public static int[] gridLocation(String userInput) {
@@ -153,4 +173,6 @@ public class GameLogic {
 
         return gridLocation;
     }
+
+
 }
