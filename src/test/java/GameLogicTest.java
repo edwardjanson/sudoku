@@ -63,6 +63,14 @@ public class GameLogicTest {
 
     @Test
     public void canGetRandomNumber() {
+        matrix[2][2] = 1;
+        matrix[4][0] = 2;
+        matrix[8][0] = 3;
+        matrix[0][3] = 4;
+        matrix[0][7] = 5;
+        int testNum = GameLogic.randomNumber(GameLogic.possibleNumbers(matrix,0,0));
+
+        assertTrue(testNum >= 6 && testNum <= 9);
     }
 
     @Test

@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 public class GameLogic {
@@ -123,8 +124,9 @@ public class GameLogic {
         return availableNumbers;
     }
 
-    public static int randomNumber() {
-        return 0;
+    public static int randomNumber(List<Integer> possibleNumbers) {
+        Random rand = new Random();
+        return possibleNumbers.get(rand.nextInt(possibleNumbers.size()));
     }
 
     public static int[] gridLocation(String userInput) {
