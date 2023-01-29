@@ -49,16 +49,15 @@ public class GameLogic {
         for (int row = 0; row < 9; row++) {
             for (int column = 0; column < 9; column++) {
                 List<Integer> possibleNumbers = possibleNumbers(matrix, row, column);
-                int randomNumber = randomNumber(possibleNumbers);
-                if(randomNumber == 0){
-                    row--;
-                    break;
 
-                }
-                else{
+                int randomNumber = randomNumber(possibleNumbers);
+                if (randomNumber == 0) {
+                    int[] reinitilise = {0, 0, 0, 0, 0, 0, 0, 0, 0};
+                    matrix[row] = reinitilise;
+                    column = -1;
+                } else {
                     matrix[row][column] = randomNumber;
                 }
-                System.out.println(Arrays.toString(matrix[row]));
             }
         }
         return matrix;
