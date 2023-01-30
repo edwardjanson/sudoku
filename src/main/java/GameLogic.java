@@ -1,3 +1,4 @@
+import java.io.Console;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -6,13 +7,15 @@ import java.util.stream.Collectors;
 
 public class GameLogic {
 
-    public static void terminalOutput(int matrix[][]) {
-        int rowCount = 0;
-        String[] column = {"1", "2", "3", " ", "4", "5", "6", " ", "7", "8", "9"};
-        System.out.println("    " + Arrays.toString(column)
+    public static void terminalOutput(int[][] matrixPlayer, int[][] matrixToSolve) {
+        String blue = "\u001B[34m";
+        String colourReset = "\u001B[0m";
+
+        String[] columnIndex = {"1", "2", "3", " ", "4", "5", "6", " ", "7", "8", "9"};
+        System.out.println("    " + Arrays.toString(columnIndex)
                 .replace(",", "")
                 .replace("[", "")
-                .replace("]", "").trim());
+                .replace("]", ""));
 
         System.out.println();
 
@@ -20,7 +23,10 @@ public class GameLogic {
 
         String[] rowLetters = new String[]{"A", "B", "C", "D", "E", "F", "G", "H", "I"};
 
-        for (int[] row : matrix) {
+        int rowCount = 0;
+        int columnCount = 0;
+
+        for (int[] row : matrixPlayer) {
             String[] line = {" ", " ", " ", "|", " ", " ", " ", "|", " ", " ", " "};
             int lineIndex = 0;
             for (int i = 0; i < line.length ; i++) {
@@ -29,18 +35,35 @@ public class GameLogic {
                     lineIndex++;
                 }
             }
+
             if (rowCount % 3 == 0 && rowCount != 0) {
                 System.out.println("    " + Arrays.toString(split)
                                         .replace(",", "")
                                         .replace("[", "")
                                         .replace("]", ""));
             }
-            System.out.println(rowLetters[rowCount] + "   " + Arrays.toString(line)
-                                    .replace(",", "")
-                                    .replace("[", "")
-                                    .replace("0", " ")
-                                    .replace("]", ""));
+
+            for (int column = 0; column < 12; column++) {
+                if (column == 0) {
+                    System.out.print(rowLetters[rowCount] + "   ");
+                } else if (column % 4 == 0) {
+                    System.out.print("| ");
+                } else {
+                    if (matrixPlayer[rowCount][columnCount] == 0) {
+                        System.out.print("  ");
+                    } else if (matrixPlayer[rowCount][columnCount] != 0 && matrixToSolve[rowCount][columnCount] == 0) {
+                        System.out.print(matrixPlayer[rowCount][columnCount] + " ");
+                    } else {
+                        System.out.print(blue + matrixPlayer[rowCount][columnCount] + " " + colourReset);
+                    }
+                    columnCount += 1;
+                }
+            }
+
+            columnCount = 0;
             rowCount += 1;
+
+            System.out.println();
         }
     }
 
@@ -61,6 +84,7 @@ public class GameLogic {
                 }
             }
         }
+
         return matrix;
     }
 
@@ -74,6 +98,7 @@ public class GameLogic {
                 }
             }
         }
+
         return usedNumbers;
     }
 
@@ -94,6 +119,7 @@ public class GameLogic {
         } else {
             boxRange[1] = 9;
         }
+
         return boxRange;
     }
 
@@ -142,11 +168,11 @@ public class GameLogic {
 
     public static int randomNumber(List<Integer> possibleNumbers) {
         Random rand = new Random();
-        if (possibleNumbers.size() != 0 ){
+        if (possibleNumbers.size() != 0 ) {
             return possibleNumbers.get(rand.nextInt(possibleNumbers.size()));
         }
-        return 0;
 
+        return 0;
     }
 
     public static int[] gridLocation(String userInput) {
@@ -174,19 +200,20 @@ public class GameLogic {
         return gridLocation;
     }
 
-    public static int[][] removeNumbers(int[][] matrix, int numberCount){
+    public static int[][] removeNumbers(int[][] matrix, int numberCount) {
         int[][] removedMatrix = new int[9][9];
         removedMatrix = matrix;
         Random rand = new Random();
         for (int i = 0; i < numberCount; i++) {
             int randomRowNumber = rand.nextInt(9);
             int randomColumnNumber = rand.nextInt(9);
-            if(matrix[randomRowNumber][randomColumnNumber] == 0){
+            if(matrix[randomRowNumber][randomColumnNumber] == 0) {
                 i--;
                 continue;
             }
             removedMatrix[randomRowNumber][randomColumnNumber] = 0;
         }
+
         return removedMatrix;
     }
 

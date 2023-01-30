@@ -1,10 +1,14 @@
+import java.util.Arrays;
+
 public class GameRunner {
 
     public static void main(String[] args) {
 
-        int[][] matrix = GameLogic.initiateGameGrid();
+        int[][] matrixSolved = GameLogic.initiateGameGrid();
+        int[][] matrixToSolve = GameLogic.removeNumbers(matrixSolved, 56);
+        int[][] matrixPlayer = Arrays.stream(matrixToSolve).map(int[]::clone).toArray(int[][]::new);
 
-        GameLogic.terminalOutput(matrix);
+        GameLogic.terminalOutput(matrixPlayer, matrixToSolve);
 
     }
 }
