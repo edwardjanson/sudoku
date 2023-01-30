@@ -96,8 +96,25 @@ public class GameLogicTest {
     public void matrixHasUniqueValues(){
        int[][] matrix= GameLogic.initiateGameGrid();
        for (int[] row: matrix){
-        assertEquals(9, Arrays.stream(row).distinct().count() );
+           assertEquals(9, Arrays.stream(row).distinct().count() );
        }
     }
+
+    @Test
+    public void canRemoveMatrixNumbers(){
+        int[][] testMatrix = GameLogic.initiateGameGrid();
+        int[][] testRemovedMatrix = GameLogic.removeNumbers(testMatrix,40);
+        int zeroCounter= 0;
+        for (int[] row : testRemovedMatrix) {
+            for(int number : row){
+                if(number == 0){
+                    zeroCounter++;
+                }
+            }
+        }
+        assertTrue(zeroCounter == 40);
+    }
+
+
 
 }

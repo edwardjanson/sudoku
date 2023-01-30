@@ -38,6 +38,7 @@ public class GameLogic {
             System.out.println(rowLetters[rowCount] + "   " + Arrays.toString(line)
                                     .replace(",", "")
                                     .replace("[", "")
+                                    .replace("0", " ")
                                     .replace("]", ""));
             rowCount += 1;
         }
@@ -52,8 +53,8 @@ public class GameLogic {
 
                 int randomNumber = randomNumber(possibleNumbers);
                 if (randomNumber == 0) {
-                    int[] reinitilise = {0, 0, 0, 0, 0, 0, 0, 0, 0};
-                    matrix[row] = reinitilise;
+                    int[] reinitialise = {0, 0, 0, 0, 0, 0, 0, 0, 0};
+                    matrix[row] = reinitialise;
                     column = -1;
                 } else {
                     matrix[row][column] = randomNumber;
@@ -173,5 +174,20 @@ public class GameLogic {
         return gridLocation;
     }
 
+    public static int[][] removeNumbers(int[][] matrix, int numberCount){
+        int[][] removedMatrix = new int[9][9];
+        removedMatrix = matrix;
+        Random rand = new Random();
+        for (int i = 0; i < numberCount; i++) {
+            int randomRowNumber = rand.nextInt(9);
+            int randomColumnNumber = rand.nextInt(9);
+            if(matrix[randomRowNumber][randomColumnNumber] == 0){
+                i--;
+                continue;
+            }
+            removedMatrix[randomRowNumber][randomColumnNumber] = 0;
+        }
+        return removedMatrix;
+    }
 
 }
