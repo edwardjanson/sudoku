@@ -4,11 +4,8 @@ public class GameRunner {
 
     public static void main(String[] args) {
 
-        int[][] matrixSolved = GameLogic.initiateGameGrid();
-        int[][] matrixToSolve = GameLogic.removeNumbers(matrixSolved, 56);
-        int[][] matrixPlayer = Arrays.stream(matrixToSolve).map(int[]::clone).toArray(int[][]::new);
+        Sudoku sudoku = new Sudoku();
 
-        GameLogic.terminalOutput(matrixPlayer, matrixToSolve);
-
+        GameLogic.terminalOutput(sudoku.getPlayerSudoku(), sudoku.getUnsolvedSudoku());
     }
 }
