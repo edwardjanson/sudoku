@@ -115,6 +115,26 @@ public class GameLogicTest {
         assertTrue(zeroCounter == 40);
     }
 
+    @Test
+    public void canUpdatePlayerMatrix(){
+        int[][] testMatrixToSolve = new int[9][9];
+        int[][] testMatrixPlayer = new int[9][9];
 
+        testMatrixToSolve[0][1] = 5;
+        testMatrixPlayer[0][1] = 5;
 
+        String testLocation = "b3";
+        int[] testGridLocation = GameLogic.gridLocation(testLocation);
+
+        String testLocation2 = "a2";
+        int[] testGridLocation2 = GameLogic.gridLocation(testLocation2);
+
+        GameLogic.updateMatrix(testMatrixPlayer, testMatrixToSolve, testGridLocation, 6);
+        GameLogic.updateMatrix(testMatrixPlayer, testMatrixToSolve, testGridLocation2, 3);
+
+        GameLogic.terminalOutput(testMatrixPlayer, testMatrixToSolve);
+
+        assertTrue(testMatrixPlayer[1][2] == 6);
+        assertTrue(testMatrixPlayer[0][1] == 5);
+    }
 }

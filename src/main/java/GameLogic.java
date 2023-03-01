@@ -217,4 +217,14 @@ public class GameLogic {
         return removedMatrix;
     }
 
+    public static boolean updateMatrix(int[][] matrixPlayer, int[][] matrixToSolve, int[] gridLocation, int userInput) {
+        if (matrixToSolve[gridLocation[0]][gridLocation[1]] != 0) {
+            return false;
+        } else if (gridLocation[0] != -1 || gridLocation[1] != -1) {
+            matrixPlayer[gridLocation[0]][gridLocation[1]] = userInput;
+            return true;
+        }
+        return false;
+    }
+
 }
