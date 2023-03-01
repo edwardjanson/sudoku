@@ -14,11 +14,11 @@ public class SudokuTest {
 
         @Before
         public void before() {
+            sudoku = new Sudoku();
             matrix = new int[9][9];
             range = new int[2];
             range[0] = 3;
             range[1] = 6;
-            sudoku = new Sudoku();
         }
 
         @Test
@@ -75,36 +75,28 @@ public class SudokuTest {
         }
 
         @Test
-        public void canGetGridLocation() {
-            String testLocation = "b3";
-            int[] testGridLocation = new int[2];
-            testGridLocation[0] = 1;
-            testGridLocation[1] = 2;
-            assertArrayEquals(testGridLocation, sudoku.gridLocation(testLocation));
-        }
-
-        @Test
-        public void returnsErrorRangeIfWrongInput() {
-            String testLocation = "K10";
-            int[] testGridLocation = new int[2];
-            testGridLocation[0] = -1;
-            testGridLocation[1] = -1;
-            assertArrayEquals(testGridLocation, sudoku.gridLocation(testLocation));
-        }
-
-        @Test
-        public void matrixHasUniqueValues(){
-            int[][] matrix= sudoku.initiateGameGrid();
-            for (int[] row: matrix){
-                assertEquals(9, Arrays.stream(row).distinct().count() );
+        public void matrixHasUniqueValues() {
+            for (int[] row : sudoku.getSolvedSudoku()) {
+                assertEquals(9, Arrays.stream(row).distinct().count());
             }
         }
 
         @Test
-        public void canRemoveMatrixNumbers(){
-            int[][] testMatrix = sudoku.initiateGameGrid();
-            int[][] testRemovedMatrix = sudoku.removeNumbers(40);
-            int zeroCounter= 0;
+        public void canRemoveMatrixNumbers() {
+            Sudoku testSudoku = new Sudoku();
+            int[][] testMatrix = new int[9][9];
+
+            for (int row = 0; row < 9; row++) {
+                for (int column = 0; column < 9; column++) {
+                    testMatrix[row][column] = 1;
+                }
+            }
+
+            testSudoku.setSolvedSudoku(testMatrix);
+
+            int[][] testRemovedMatrix = testSudoku.removeNumbers(40);
+
+            int zeroCounter = 0;
             for (int[] row : testRemovedMatrix) {
                 for(int number : row){
                     if(number == 0){
@@ -129,15 +121,13 @@ public class SudokuTest {
             emptySudoku.setPlayerSudoku(testMatrixPlayer);
 
             String testLocation = "b3";
-            int[] testGridLocation = emptySudoku.gridLocation(testLocation);
+            int[] testGridLocation = GameLogic.gridLocation(testLocation);
 
             String testLocation2 = "a2";
-            int[] testGridLocation2 = emptySudoku.gridLocation(testLocation2);
+            int[] testGridLocation2 = GameLogic.gridLocation(testLocation2);
 
             emptySudoku.updateMatrix(testGridLocation, 6);
             emptySudoku.updateMatrix(testGridLocation2, 3);
-
-            GameLogic.terminalOutput(testMatrixPlayer, testMatrixUnsolved);
 
             assertTrue(testMatrixPlayer[1][2] == 6);
             assertTrue(testMatrixPlayer[0][1] == 5);

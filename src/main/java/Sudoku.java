@@ -17,9 +17,15 @@ public class Sudoku {
 
     public int[][] initiateGameGrid() {
         int[][] matrix = new int[9][9];
+        int tries = 0;
 
         for (int row = 0; row < 9; row++) {
             for (int column = 0; column < 9; column++) {
+                if (tries > 30) {
+                    row = -1;
+                    tries = 0;
+                    break;
+                }
                 List<Integer> possibleNumbers = possibleNumbers(matrix, row, column);
 
                 int randomNumber = randomNumber(possibleNumbers);
@@ -27,6 +33,7 @@ public class Sudoku {
                     int[] reinitialise = {0, 0, 0, 0, 0, 0, 0, 0, 0};
                     matrix[row] = reinitialise;
                     column = -1;
+                    tries++;
                 } else {
                     matrix[row][column] = randomNumber;
                 }
@@ -99,7 +106,6 @@ public class Sudoku {
         }
 
         return usedNumbers;
-
     }
 
     public ArrayList<Integer> checkColumn(int[][] matrix, int column) {
@@ -123,39 +129,14 @@ public class Sudoku {
         return 0;
     }
 
-    public int[] gridLocation(String userInput) {
-        int[] gridLocation = new int[2];
-        char[] input = userInput.toUpperCase().toCharArray();
-
-        int tempRow = (int) input[0];
-        if (tempRow >= 65 && tempRow <= 73) {
-            gridLocation[0] = tempRow - 65;
-        } else {
-            gridLocation[0] = -1;
-            gridLocation[1] = -1;
-            return gridLocation;
-        }
-
-        int tempColumn = Character.getNumericValue(input[1]);
-        if (tempColumn >= 1 &&  tempColumn <= 9) {
-            gridLocation[1] = tempColumn - 1;
-        } else {
-            gridLocation[0] = -1;
-            gridLocation[1] = -1;
-            return gridLocation;
-        }
-
-        return gridLocation;
-    }
-
     public int[][] removeNumbers(int numberCount) {
         int[][] removedMatrix = new int[9][9];
-        removedMatrix = this.solvedSudoku;
+        removedMatrix = Arrays.stream(this.solvedSudoku).map(int[]::clone).toArray(int[][]::new);;
         Random rand = new Random();
         for (int i = 0; i < numberCount; i++) {
             int randomRowNumber = rand.nextInt(9);
             int randomColumnNumber = rand.nextInt(9);
-            if(this.solvedSudoku[randomRowNumber][randomColumnNumber] == 0) {
+            if(removedMatrix[randomRowNumber][randomColumnNumber] == 0) {
                 i--;
                 continue;
             }
